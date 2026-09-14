@@ -1,0 +1,7 @@
+tmp/
+docx_word_render/
+docx_word_render2/
+*.docx
+*.pdf
+*.py
+node_modules/
