@@ -537,6 +537,113 @@ footer button {
   padding: 13px 20px;
   border-radius: 4px;
 }
+.ar-guide[hidden] {
+  display: none;
+}
+.ar-guide {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: rgba(20, 20, 18, 0.56);
+}
+.ar-guide-dialog {
+  position: relative;
+  width: min(100%, 520px);
+  max-height: min(720px, 90vh);
+  overflow: auto;
+  background: #fff;
+  color: #222;
+  padding: 30px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.24);
+}
+.ar-guide-dialog > small {
+  letter-spacing: 1.6px;
+  color: #777;
+}
+.ar-guide-dialog h2 {
+  margin: 9px 0 12px;
+  font-size: 28px;
+  line-height: 1.15;
+}
+.ar-guide-intro,
+.ar-guide-note {
+  color: #666;
+  line-height: 1.6;
+  font-size: 13px;
+}
+.ar-check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 14px 0;
+  color: #444;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.ar-check input {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  accent-color: #222;
+}
+.ar-guide-distance {
+  border-top: 1px solid var(--line);
+  margin-top: 18px;
+  padding-top: 17px;
+}
+.ar-guide-distance label {
+  display: block;
+  color: #555;
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+.ar-guide-distance div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ar-guide-distance input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d0ccc4;
+  padding: 10px;
+  font: inherit;
+}
+.ar-guide-distance span {
+  white-space: nowrap;
+  font-size: 12px;
+  color: #777;
+}
+.ar-guide-continue {
+  width: 100%;
+  border: 0;
+  background: #222;
+  color: #fff;
+  padding: 13px 16px;
+  margin-top: 18px;
+  cursor: pointer;
+  font: inherit;
+}
+.ar-guide-continue:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+.ar-guide-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  border: 0;
+  background: transparent;
+  color: #222;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+body.ar-guide-open {
+  overflow: hidden;
+}
 header nav {
   margin-left: 0;
 }

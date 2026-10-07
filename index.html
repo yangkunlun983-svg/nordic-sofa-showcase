@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>NORDIC LIVING | Haven Two Seat Sofa</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="styles.css?v=28" />
+    <link rel="stylesheet" href="styles.css?v=30" />
     <script
       type="module"
       src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"
@@ -416,13 +416,19 @@
           auto-rotate
           ar
           ar-modes="webxr scene-viewer quick-look"
+          camera-target="auto 0m auto"
+          min-camera-orbit="-Infinity 12deg auto"
+          max-camera-orbit="Infinity 86deg auto"
+          min-field-of-view="28deg"
+          max-field-of-view="45deg"
+          interaction-prompt="none"
           shadow-intensity="0.7"
           shadow-softness="0.9"
           exposure="0.72"
           tone-mapping="commerce"
           poster="assets/product/sofa-front.png"
           reveal="auto"
-          ><button slot="ar-button" class="model-ar-button">
+          ><button slot="ar-button" id="modelArButton" class="model-ar-button">
             View in your space
           </button></model-viewer
         >
@@ -498,6 +504,74 @@
       <b>HK$12,800</b>
     </aside>
     <div class="toast">Added to cart</div>
-    <script src="script.js?v=31"></script>
+    <div class="ar-guide" id="arGuide" hidden>
+      <div
+        class="ar-guide-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="arGuideTitle"
+      >
+        <button
+          class="ar-guide-close"
+          id="arGuideClose"
+          type="button"
+          aria-label="Close AR setup"
+        >
+          ×
+        </button>
+        <small>AR SETUP</small>
+        <h2 id="arGuideTitle">Prepare the space before placing</h2>
+        <p class="ar-guide-intro">
+          The sofa model is authored at real size: W 218 × D 94 × H 82 cm.
+          Follow these checks so the AR preview stays proportional.
+        </p>
+        <label class="ar-check"
+          ><input type="checkbox" data-ar-check />
+          <span
+            >There is at least 2.18 m × 0.94 m of clear floor space.</span
+          ></label
+        >
+        <label class="ar-check"
+          ><input type="checkbox" data-ar-check />
+          <span
+            >I am standing about 2–3 m away from the intended placement
+            area.</span
+          ></label
+        >
+        <label class="ar-check"
+          ><input type="checkbox" data-ar-check />
+          <span
+            >I will slowly scan the floor until the device detects a horizontal
+            surface.</span
+          ></label
+        >
+        <div class="ar-guide-distance">
+          <label for="arDistance">Optional distance check</label>
+          <div>
+            <input
+              id="arDistance"
+              type="number"
+              min="2.18"
+              step="0.01"
+              placeholder="Clear width in metres"
+            /><span>m minimum</span>
+          </div>
+        </div>
+        <p class="ar-guide-note">
+          AR placement is controlled by iOS Quick Look or Android AR. Keep the
+          phone level and move slowly; the final placement scale is determined
+          by the device tracking.
+        </p>
+        <button
+          class="ar-guide-continue"
+          id="arGuideContinue"
+          type="button"
+          disabled
+        >
+          Continue to AR
+        </button>
+      </div>
+    </div>
+    <script src="script.js?v=33"></script>
   </body>
 </html>

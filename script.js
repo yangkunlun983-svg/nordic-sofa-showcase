@@ -133,18 +133,45 @@ document
   .addEventListener("click", () =>
     document.querySelector("#model").scrollIntoView({ behavior: "smooth" }),
   );
-document.querySelector(".ar-visible")?.addEventListener("click", async (e) => {
-  const viewer = document.querySelector("#sofaViewer");
+const arGuide = document.querySelector("#arGuide"),
+  arGuideContinue = document.querySelector("#arGuideContinue"),
+  arGuideClose = document.querySelector("#arGuideClose"),
+  arDistance = document.querySelector("#arDistance"),
+  arChecks = [...document.querySelectorAll("[data-ar-check]")],
+  arLink = document.querySelector(".ar-visible"),
+  sofaViewer = document.querySelector("#sofaViewer"),
+  modelArButton = document.querySelector("#modelArButton");
+function openArGuide() {
+  if (!arGuide) return;
+  arGuide.hidden = false;
+  document.body.classList.add("ar-guide-open");
+  arGuideContinue.disabled = !arChecks.every((check) => check.checked);
+}
+function closeArGuide() {
+  if (!arGuide) return;
+  arGuide.hidden = true;
+  document.body.classList.remove("ar-guide-open");
+}
+function updateArGuideState() {
+  if (!arGuideContinue) return;
+  const checksComplete = arChecks.every((check) => check.checked);
+  const distanceValue = Number(arDistance?.value || 0);
+  arGuideContinue.disabled =
+    !checksComplete || (distanceValue > 0 && distanceValue < 2.18);
+}
+async function launchArAfterGuide() {
+  closeArGuide();
   const isiOS =
-    /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   if (isiOS) {
+    if (arLink?.href) window.location.href = arLink.href;
     return;
   }
-  e.preventDefault();
-  if (viewer?.activateAR) {
+  if (sofaViewer?.activateAR) {
     try {
-      await viewer.activateAR();
-    } catch (e) {
+      await sofaViewer.activateAR();
+    } catch (error) {
       alert(
         "For AR, use Safari on iPhone or Chrome on an ARCore-supported Android phone.",
       );
@@ -154,6 +181,24 @@ document.querySelector(".ar-visible")?.addEventListener("click", async (e) => {
       "For AR, use Safari on iPhone or Chrome on an ARCore-supported Android phone.",
     );
   }
+}
+arChecks.forEach((check) =>
+  check.addEventListener("change", updateArGuideState),
+);
+arDistance?.addEventListener("input", updateArGuideState);
+arGuideClose?.addEventListener("click", closeArGuide);
+arGuide?.addEventListener("click", (event) => {
+  if (event.target === arGuide) closeArGuide();
+});
+arGuideContinue?.addEventListener("click", launchArAfterGuide);
+arLink?.addEventListener("click", (event) => {
+  event.preventDefault();
+  openArGuide();
+});
+modelArButton?.addEventListener("click", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  openArGuide();
 });
 document.querySelectorAll(".match-tab").forEach((tab) =>
   tab.addEventListener("click", () => {
